@@ -6,6 +6,7 @@ document.addEventListener('keydown', event => {
         const audio = document.querySelector(`audio[data-key="${event.key}"]`)
         if (!pressedKey || !audio) return;
         pressedKey.classList.add('playing');
+        audio.currentTime = 0; // restart audio if playing
         audio.play();
     }
 })
