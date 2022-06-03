@@ -62,12 +62,34 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%; /* set the base of the rotation to the right side of element (50% default is in the middle) */
+      transform: rotate(90deg) /* rotate the hand 90 degrees */
+    }
+
+    .hour-hand {
+      /* Shorten the hand */
+      background: -moz-linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(1, 1, 1, 0) 50%, rgb(4, 4, 4) 52%, rgb(0, 0, 0) 100%)
     }
 
   </style>
 
   <script>
+    setInterval(() => setClock(), 1000);
 
+    function setClock() {
+      const now = new Date();
+      const second = now.getSeconds();
+      const minute = now.getMinutes();
+      const hour = now.getHours();
+
+      const secondDegrees = ((second / 60) * 360) + 90;
+      const minuteDegrees = ((minute / 60) * 360) + 90;
+      const hourDegrees = ((hour / 12) * 360) + 90;
+
+      document.querySelector('.second-hand').style.transform = `rotate(${secondDegrees}deg)`;
+      document.querySelector('.min-hand').style.transform = `rotate(${minuteDegrees}deg)`;
+      document.querySelector('.hour-hand').style.transform = `rotate(${hourDegrees}deg)`;
+    }
 
   </script>
 </body>
